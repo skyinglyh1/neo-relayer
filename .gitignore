@@ -3,6 +3,10 @@
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
-
+.wallets/
 boltdb/*
 Logs/*
+.idea/
+config_*.json
+neo*relayer
+/test

@@ -354,13 +354,13 @@ func (this *SyncService) syncProofToNeo(key string, txHeight, lastSynced uint32)
 	log.Infof("method: " + helper.BytesToHex(toMerkleValue.TxParam.Method))
 	log.Infof("TxParamArgs: " + helper.BytesToHex(toMerkleValue.TxParam.Args))
 
-	//toAssetHash, toAddress, amount, err := DeserializeArgs(toMerkleValue.TxParam.Args)
-	//if err != nil {
-	//	return fmt.Errorf("[syncProofToNeo] DeserializeArgs error: %s", err)
-	//}
-	//log.Infof("toAssetHash: " + helper.BytesToHex(toAssetHash))
-	//log.Infof("toAddress: " + helper.BytesToHex(toAddress))
-	//log.Infof("amount: " + amount.String())
+	toAssetHash, toAddress, amount, err := DeserializeArgs(toMerkleValue.TxParam.Args)
+	if err != nil {
+		return fmt.Errorf("[syncProofToNeo] DeserializeArgs error: %s", err)
+	}
+	log.Infof("toAssetHash: " + helper.BytesToHex(toAssetHash))
+	log.Infof("toAddress: " + helper.BytesToHex(toAddress))
+	log.Infof("amount: " + amount.String())
 
 	// build script
 	scriptBuilder := sc.NewScriptBuilder()
@@ -407,7 +407,7 @@ func (this *SyncService) syncProofToNeo(key string, txHeight, lastSynced uint32)
 	}
 
 	rawTxString := itx.RawTransactionString()
-
+	log.Infof("rawTxString: %s", rawTxString)
 	// send the raw transaction
 	response := this.neoSdk.SendRawTransaction(rawTxString)
 	if response.HasError() {
